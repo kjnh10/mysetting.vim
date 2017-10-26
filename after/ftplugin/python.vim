@@ -28,3 +28,12 @@ function! GetGooglePythonIndent(lnum)
 endfunction
 let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2""}}}
+
+python3 << EOF
+import os
+import sys
+
+path = os.path.expanduser("~/Anaconda3/Lib/site-packages")
+if not path in sys.path:
+    sys.path.append(path)
+EOF
