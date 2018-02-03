@@ -17,11 +17,17 @@ snippet     b_search
 abbr        [func]binary_search aliased as bs
 alias       bs
 options     indent
-	def binary_search_for_integer(ng, ok):
-	    """ return the number that is OK firstly """
+	def bs(ng, ok, solver):  # binary search for integer set
+		"""
+		input:
+			ng: max number known to be ng. default -1
+			ok: min number known to be ok. default max number + 1
+		output:
+			the number that is OK firstly
+		"""
 		while math.fabs(ok-ng) > 1:
 			mid = (ok+ng)//2
-			if solve(mid):
+			if solver(mid):
 				ok = mid
 			else:
 				ng = mid
@@ -29,13 +35,14 @@ options     indent
 
 	def solve(x):
 		pass
+		return False
 		# return True
 		# return False
 
 
 snippet     import standard library
 abbr        import standard library [im]
-alias       im
+alias       std
 options     indent
     import re
     from scipy import integrate
@@ -51,7 +58,3 @@ options     indent
     from heapq import heappop, heappush, heapify
     import math
 
-snippet     3D
-abbr        3D
-alias       aaa
-    np.array([[[0 for x in range(5)] for y in range(5)] for z in range(5)])
