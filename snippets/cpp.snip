@@ -5,3 +5,34 @@ options     head
 snippet     p3
 options     head
   cout << (${1} ? ${2} : ${3}) << endl;
+
+snippet     rep
+options     head
+  rep(i,${1}){
+  }
+
+snippet     if
+options     head
+  if(${1}){
+  }
+
+snippet     else
+options     head
+  else{
+    ${1}
+  }
+
+snippet     elif
+options     head
+  else if(${1}){
+  }
+
+snippet     while
+options     head
+  while (${1}){
+  }
+
+snippet     reprep
+options     head
+  rep(i, ${1}) rep(j, ${2}){
+  }
