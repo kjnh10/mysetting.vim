@@ -1,17 +1,18 @@
 snippet     map
 abbr        map(int,input().split())
 alias       input_as_separeted
-    map(${1:int}, input().split())
+    map(${0:string}, input().split())
+
 
 snippet     list
 abbr        list(map(int,input().split()))
 alias       input_as_list
-    list(map(${1:int}, input().split()))
+    list(map(${0:int}, input().split()))
 
 snippet     input
 abbr        list(map(int,input().split()))
 alias       input_as_list
-    [list(map(${1:int}, input().split())) for n in range(N)]
+    [list(map(${0:int}, input().split())) for n in range(N)]
 
 snippet     b_search
 abbr        [func]binary_search aliased as bs
