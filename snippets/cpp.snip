@@ -17,8 +17,7 @@ options     head
 
 snippet     else
 options     head
-  else{
-    ${0}
+  else{${0}
   }
 
 snippet     elif
@@ -33,7 +32,7 @@ options     head
 
 snippet     reprep
 options     head
-  rep(i, ${0}) rep(j, ${1}){
+  rep(i, ${1}) rep(j, ${2}){${0}
   }
 
 snippet     d
@@ -41,3 +40,6 @@ snippet     d
 
 snippet     af
   assert(false);
+
+snippet     sortkey
+  sort(all(${0}), [](auto &left, auto &right){return left.second < right.second;});
