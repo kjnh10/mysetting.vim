@@ -1,8 +1,8 @@
 snippet     cout
   cout << ${0:TARGET} << endl;
 
-snippet     3
-  (${1:cond} ? ${2:texp} : ${3:fexp})
+snippet     ?:
+  (${1:c} ? ${2:t} : ${3:f})
 
 snippet     rep
 options     head
@@ -47,3 +47,28 @@ snippet     af
 
 snippet     sortkey
   sort(all(${0}), [](auto &left, auto &right){return left.second < right.second;});
+
+snippet     perm
+  do{
+    ${0};
+  } while (next_permutation(all(x)));
+
+snippet     warsharll
+  // init
+  int d[N][N]={};  // 必要があればglobalに
+  rep(i, N)rep(j, N){
+    d[i][j] = (i==j ? 0 : INF)
+  }
+
+  // input
+  ${0};
+
+  // calc
+  rep(k, N){
+    rep(i, N){
+      rep(j, N){
+        chmin(d[i][j], d[i][k]+d[k][j]);
+      }
+    }
+  }
+  dump_2d(d, N, N);
