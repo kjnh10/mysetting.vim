@@ -68,3 +68,21 @@ snippet     warsharll
     }
   }
   dump_2d(d, N, N);
+
+snippet digitdp
+  rep(i, sz(S)){  //桁数
+    rep(leq, 2){  //未満確定フラグ
+      int lim = leq ? 9 : S[i]-'0';
+      rep(d, lim+1){
+        dp[i][leq || d<lim] += dp[i-1][leq];
+      }
+    }
+  }
+
+snippet rangesum
+  int rangesum(int l, int r){
+    // a[]: accumulative sum
+    if (l > r) return 0;
+    if (l!=0){ return a[r] - a[l-1]; }
+    else{ return a[r]; }
+  }
