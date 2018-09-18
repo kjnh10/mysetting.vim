@@ -82,7 +82,37 @@ snippet digitdp
 snippet rangesum
   int rangesum(int l, int r){
     // a[]: accumulative sum
+    l = max(0, l);
+    // r = min(0, n-1);
     if (l > r) return 0;
-    if (l!=0){ return a[r] - a[l-1]; }
-    else{ return a[r]; }
+    return a[r] - (l-1>=0 ? a[l-1] : 0);
   }
+
+snippet RangeSumVector
+  struct RangeSumVector {
+    vector<int> data;
+    vector<int> a_sum; //accumulative sum
+    RangeSumVector(){}
+
+    int &operator[](int i){
+      return data[i];
+    }
+    void push_back(int v){
+      data.push_back(v);
+    }
+
+    void calc(){
+      a_sum = vector<int>(sz(data));
+      a_sum[0] = data[0];
+      for(int i=1; i<sz(data); i++){
+        a_sum[i] += a_sum[i-1] + data[i];
+      }
+    }
+
+    int rsum(int l, int r) {  // return sum of [l, r] of data.
+      l = std::max(0LL, l);
+      r = std::min(r, sz(a_sum)-1);
+      if (l > r) return 0;
+      return a_sum[r] - (l-1>=0 ? a_sum[l-1] : 0);
+    }
+  };
