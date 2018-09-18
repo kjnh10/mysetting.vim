@@ -7,6 +7,9 @@ snippet     couts
 snippet     ?
   (${1} ? ${2} : ${3})
 
+snippet ina
+  int a[n]; rep(i, n) {cin>>a[i]};
+
 snippet     rep
   rep(i, ${0}){
   }
@@ -89,7 +92,7 @@ snippet rangesum
   }
 
 snippet RangeSumVector
-  struct RangeSumVector {
+  struct RangeSumVector {  // {{{
     vector<int> data;
     vector<int> a_sum; //accumulative sum
     RangeSumVector(){}
@@ -116,3 +119,4 @@ snippet RangeSumVector
       return a_sum[r] - (l-1>=0 ? a_sum[l-1] : 0);
     }
   };
+  // }}}}
