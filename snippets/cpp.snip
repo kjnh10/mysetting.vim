@@ -96,31 +96,39 @@ snippet rangesum
   }
 
 snippet RangeSumVector
-  struct RangeSumVector {  // {{{
-    vector<int> data;
-    vector<int> a_sum; //accumulative sum
-    RangeSumVector(){}
+  template<typename T=int>
+  struct RangeSumVector {
+    vector<T> data;
+    vector<T> acum; //accumulative sum
 
-    int &operator[](int i){
+    // constructor
+    RangeSumVector(){}
+    RangeSumVector(int n){ data = vector<T>(n); }
+    RangeSumVector(int n, T firstvalue){ data = vector<T>(n, firstvalue); }
+
+    T &operator[](T i){
       return data[i];
     }
-    void push_back(int v){
+    void push_back(T v){
       data.push_back(v);
+    }
+    int size(){
+      return data.size();
     }
 
     void calc(){
-      a_sum = vector<int>(sz(data));
-      a_sum[0] = data[0];
-      for(int i=1; i<sz(data); i++){
-        a_sum[i] += a_sum[i-1] + data[i];
+      acum = vector<T>(sz(data));
+      acum[0] = data[0];
+      for(T i=1; i<sz(data); i++){
+        acum[i] += acum[i-1] + data[i];
       }
     }
 
-    int rsum(int l, int r) {  // return sum of [l, r] of data.
+    T rsum(T l, T r) {  // return sum of [l, r] of data.
       l = std::max(0LL, l);
-      r = std::min(r, sz(a_sum)-1);
+      r = std::min(r, sz(acum)-1);
       if (l > r) return 0;
-      return a_sum[r] - (l-1>=0 ? a_sum[l-1] : 0);
+      return acum[r] - (l-1>=0 ? acum[l-1] : 0);
     }
   };
-  // }}}}
+
