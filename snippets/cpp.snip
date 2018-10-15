@@ -95,40 +95,52 @@ snippet rangesum
     return a[r] - (l-1>=0 ? a[l-1] : 0);
   }
 
-snippet RangeSumVector
+snippet asvi
+  // acumulative sum vector {{{
+  using asvi=AccumulativeSumVector
   template<typename T=int>
-  struct RangeSumVector {
-    vector<T> data;
+  struct asvector : public vector<T> {
+    using vector<T>::vector;
     vector<T> acum; //accumulative sum
+    bool is_accumulated = false;
 
-    // constructor
-    RangeSumVector(){}
-    RangeSumVector(int n){ data = vector<T>(n); }
-    RangeSumVector(int n, T firstvalue){ data = vector<T>(n, firstvalue); }
-
-    T &operator[](T i){
-      return data[i];
-    }
-    void push_back(T v){
-      data.push_back(v);
-    }
-    int size(){
-      return data.size();
-    }
-
-    void calc(){
-      acum = vector<T>(sz(data));
-      acum[0] = data[0];
-      for(T i=1; i<sz(data); i++){
-        acum[i] += acum[i-1] + data[i];
+    public:
+      T rsum(int l, int r) {  // return sum of [l, r] of data.
+        _accumulate();
+        l = std::max(0LL, l);
+        r = std::min(r, sz(acum)-1);
+        return _calc_rangesum(l, r);
       }
-    }
 
-    T rsum(T l, T r) {  // return sum of [l, r] of data.
-      l = std::max(0LL, l);
-      r = std::min(r, sz(acum)-1);
-      if (l > r) return 0;
-      return acum[r] - (l-1>=0 ? acum[l-1] : 0);
-    }
-  };
+      T rsum(int r) {  // return sum of [0, r] of data.
+        _accumulate();
+        int l = 0;
+        r = std::min(r, sz(acum)-1);
+        return _calc_rangesum(l, r);
+      }
 
+      void _accumulate(){
+        if (!is_accumulated){
+          acum = vector<T>(*this);
+          for(T i=1; i<sz(acum); i++){
+            acum[i] = acum[i-1] + (*this)[i];
+          }
+        }
+        is_accumulated = true;
+      }
+
+      void push_back(T x){
+        (*this).emplace_back(x);
+        is_accumulated = false;
+      }
+
+    private:
+      T _calc_rangesum(int l, int r) {
+        if (l > r)
+          return 0;
+        else
+          return acum[r] - (l-1>=0 ? acum[l-1] : 0);
+      }
+  };// }}}
+
+  // }
