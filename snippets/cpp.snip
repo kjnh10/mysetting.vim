@@ -11,11 +11,11 @@ snippet ina
   int a[n]; rep(i, n) {cin>>a[i];}
 
 snippet     rep
-  rep(i, ${0}){
+  rep(${0}){
   }
 
 snippet     rrep
-  rrep(i, ${0}){
+  rrep(${0}){
   }
 
 snippet     for
@@ -39,7 +39,7 @@ snippet     while
   }
 
 snippet     reprep
-  rep(i, ${1}) rep(j, ${2}){${0}
+  rep(${1}) rep(${2}){${0}
   }
 
 snippet     d
@@ -100,46 +100,47 @@ snippet asvi
   template<typename T=int>
   struct asvector : public vector<T> {
     using vector<T>::vector;
-    vector<T> acum; //accumulative sum
+    vector<T> cum; //accumulative sum
     bool is_accumulated = false;
 
     public:
-      T rsum(int l, int r) {  // return sum of [l, r] of data.
+    T rsum(int l, int r) {  // return sum of [l, r] of data.
+      if (!is_accumulated)
         _accumulate();
-        l = std::max(0LL, l);
-        r = std::min(r, sz(acum)-1);
-        return _calc_rangesum(l, r);
-      }
+      l = std::max(0LL, l);
+      r = std::min(r, sz(cum)-1);
+      return _calc_rangesum(l, r);
+    }
 
-      T rsum(int r) {  // return sum of [0, r] of data.
+    T rsum(int r) {  // return sum of [0, r] of data.
+      if (!is_accumulated)
         _accumulate();
-        int l = 0;
-        r = std::min(r, sz(acum)-1);
-        return _calc_rangesum(l, r);
-      }
+      int l = 0;
+      r = std::min(r, sz(cum)-1);
+      return _calc_rangesum(l, r);
+    }
 
-      void _accumulate(){
-        if (!is_accumulated){
-          acum = vector<T>(*this);
-          for(T i=1; i<sz(acum); i++){
-            acum[i] = acum[i-1] + (*this)[i];
-          }
-        }
-        is_accumulated = true;
+    void _accumulate(){
+      cum = vector<T>(*this);
+      for(T i=1; i<sz(cum); i++){
+        cum[i] = cum[i-1] + (*this)[i];
       }
+      is_accumulated = true;
+    }
 
-      void push_back(T x){
-        (*this).emplace_back(x);
-        is_accumulated = false;
-      }
+    void push_back(T x){
+      (*this).emplace_back(x);
+      is_accumulated = false;
+    }
 
     private:
-      T _calc_rangesum(int l, int r) {
-        if (l > r)
-          return 0;
-        else
-          return acum[r] - (l-1>=0 ? acum[l-1] : 0);
-      }
-  };// }}}
+    T _calc_rangesum(int l, int r) {
+      if (l > r)
+        return 0;
+      else
+        return cum[r] - (l-1>=0 ? cum[l-1] : 0);
+    }
+  };
+  //}}}
 
   // }
