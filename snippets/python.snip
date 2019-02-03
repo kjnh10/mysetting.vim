@@ -1,16 +1,15 @@
 snippet     map
 abbr        map(int,input().split())
 alias       input_as_separeted
-    map(${0:string}, input().split())
-
+    map(${0:int}, input().split())
 
 snippet     list
 abbr        list(map(int,input().split()))
 alias       input_as_list
     list(map(${0:int}, input().split()))
 
-snippet     input
-abbr        list(map(int,input().split()))
+snippet     2din
+abbr        [list(map(${0:int}, input().split())) for n in range(N)]
 alias       input_as_list
     [list(map(${0:int}, input().split())) for n in range(N)]
 
