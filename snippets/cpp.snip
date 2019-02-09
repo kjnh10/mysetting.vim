@@ -2,7 +2,7 @@ snippet     cout
   cout << ${0:TARGET} << endl;
 
 snippet     couts
-  ${0}rep(i, sz(x)) cout << x[i] << (i!=sz(x)-1 ? " " : "\n");
+  rep(i, sz(${0:x})) cout << ${1:x}[i] << (i!=sz(${2:x})-1 ? " " : "\n");
 
 snippet     ?
   (${1} ? ${2} : ${3})
