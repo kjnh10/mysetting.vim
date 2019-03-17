@@ -56,6 +56,14 @@ snippet     perm
     ${0};
   } while (next_permutation(all(x)));
 
+snippet     to_bin
+  string to_bin(int n, int d){
+    // nをd桁の2進数で表示する。
+    stringstream ss;
+    ss << bitset<20>(n);
+    return ss.str().substr(20-d, d);
+  }
+
 snippet     warsharll
   // init
   int d[N][N]={};  // 必要があればglobalに
